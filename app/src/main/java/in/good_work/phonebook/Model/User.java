@@ -82,7 +82,7 @@ public class User {
                         )
                 );
             } while (c.moveToNext());
-        } else  {
+        } else {
             Log.d(LOG_TAG, "0 rows");
         }
         c.close();
@@ -101,6 +101,29 @@ public class User {
         Log.d(LOG_TAG, "row inserted, ID = " + rowID);
     }
 
+    public User getUser(Long userId) {
+        Log.d(LOG_TAG, "--- Get user " + this.table + ": ---");
+        Cursor c = db.query(this.table, null, "id = " + userId, null, null, null, null);
+        User user = new User();
+        if (c.moveToFirst()) {
+            do {
+                user.setUserId((long) Float.parseFloat(this.getValueColumn(c, "id")));
+                user.setmName(this.getValueColumn(c, "name"));
+                user.setmSurname(this.getValueColumn(c, "surname"));
+                user.setmPhone(this.getValueColumn(c, "phone"));
+                user.setmMail(this.getValueColumn(c, "email"));
+                user.setUrlPhoto(this.getValueColumn(c, "url_photo"));
+            } while (c.moveToNext());
+        } else {
+            Log.d(LOG_TAG, "0 rows");
+        }
+        c.close();
+        return user;
+    }
+
+    private String getValueColumn(Cursor c, String columnName) {
+       return c.getString(c.getColumnIndex(columnName));
+    }
     public long getUserId() {
         return userId;
     }
@@ -159,5 +182,9 @@ public class User {
                 ", mMail='" + mMail + '\'' +
                 ", urlPhoto='" + urlPhoto + '\'' +
                 '}';
+    }
+
+    public int deleteUser(Long userId) {
+        return  db.delete(this.table, "id = " + userId, null);
     }
 }

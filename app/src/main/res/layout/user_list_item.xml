@@ -18,7 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="16dp"
-            android:background="?android:attr/alertDialogIcon" />
+            />
 
         <TextView
             android:id="@+id/user_name"
