@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,13 @@ public class RVAdapterUser extends RecyclerView.Adapter<RecyclerViewHolderUser> 
     @Override
     public RecyclerViewHolderUser onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_item, parent, false);
-        return new RecyclerViewHolderUser(view);
+        return new RecyclerViewHolderUser(view, parent.getContext());
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolderUser holder, int position) {
-        holder.bind(items.get(position));
-    }
+            holder.bind(items.get(position));
+        }
 
     @Override
     public int getItemCount() {
